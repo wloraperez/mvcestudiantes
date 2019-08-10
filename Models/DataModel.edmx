@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="mvcEstudiantesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="mvcEstudiantesModelStoreContainer">
+          <EntitySet Name="Asignaturas" EntityType="mvcEstudiantesModel.Store.Asignaturas" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Estudiante" EntityType="mvcEstudiantesModel.Store.Estudiante" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EstudianteAsignatura" EntityType="mvcEstudiantesModel.Store.EstudianteAsignatura" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_EstudianteAsignatura_Asignaturas" Association="mvcEstudiantesModel.Store.FK_EstudianteAsignatura_Asignaturas">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="EstudianteAsignatura" EntitySet="EstudianteAsignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudianteAsignatura_Estudiante" Association="mvcEstudiantesModel.Store.FK_EstudianteAsignatura_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="EstudianteAsignatura" EntitySet="EstudianteAsignatura" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Asignaturas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Horario" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Apellido" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Cedula" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="date" />
+        </EntityType>
+        <EntityType Name="EstudianteAsignatura">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IDEstudiante" Type="int" Nullable="false" />
+          <Property Name="IDAsignatura" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'mvcEstudiantes.dbo.vw_Seleccion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <Association Name="FK_EstudianteAsignatura_Asignaturas">
+          <End Role="Asignaturas" Type="mvcEstudiantesModel.Store.Asignaturas" Multiplicity="1" />
+          <End Role="EstudianteAsignatura" Type="mvcEstudiantesModel.Store.EstudianteAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EstudianteAsignatura">
+              <PropertyRef Name="IDAsignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudianteAsignatura_Estudiante">
+          <End Role="Estudiante" Type="mvcEstudiantesModel.Store.Estudiante" Multiplicity="1" />
+          <End Role="EstudianteAsignatura" Type="mvcEstudiantesModel.Store.EstudianteAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EstudianteAsignatura">
+              <PropertyRef Name="IDEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mvcEstudiantesModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="mvcEstudiantesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asignaturas" EntityType="mvcEstudiantesModel.Asignaturas" />
+          <EntitySet Name="Estudiante" EntityType="mvcEstudiantesModel.Estudiante" />
+          <EntitySet Name="EstudianteAsignatura" EntityType="mvcEstudiantesModel.EstudianteAsignatura" />
+          <AssociationSet Name="FK_EstudianteAsignatura_Asignaturas" Association="mvcEstudiantesModel.FK_EstudianteAsignatura_Asignaturas">
+            <End Role="Asignaturas" EntitySet="Asignaturas" />
+            <End Role="EstudianteAsignatura" EntitySet="EstudianteAsignatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstudianteAsignatura_Estudiante" Association="mvcEstudiantesModel.FK_EstudianteAsignatura_Estudiante">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="EstudianteAsignatura" EntitySet="EstudianteAsignatura" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Asignaturas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Horario" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="EstudianteAsignatura" Relationship="mvcEstudiantesModel.FK_EstudianteAsignatura_Asignaturas" FromRole="Asignaturas" ToRole="EstudianteAsignatura" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Cedula" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" />
+          <NavigationProperty Name="EstudianteAsignatura" Relationship="mvcEstudiantesModel.FK_EstudianteAsignatura_Estudiante" FromRole="Estudiante" ToRole="EstudianteAsignatura" />
+        </EntityType>
+        <EntityType Name="EstudianteAsignatura">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="IDAsignatura" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asignaturas" Relationship="mvcEstudiantesModel.FK_EstudianteAsignatura_Asignaturas" FromRole="EstudianteAsignatura" ToRole="Asignaturas" />
+          <NavigationProperty Name="Estudiante" Relationship="mvcEstudiantesModel.FK_EstudianteAsignatura_Estudiante" FromRole="EstudianteAsignatura" ToRole="Estudiante" />
+        </EntityType>
+        <Association Name="FK_EstudianteAsignatura_Asignaturas">
+          <End Role="Asignaturas" Type="mvcEstudiantesModel.Asignaturas" Multiplicity="1" />
+          <End Role="EstudianteAsignatura" Type="mvcEstudiantesModel.EstudianteAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asignaturas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EstudianteAsignatura">
+              <PropertyRef Name="IDAsignatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstudianteAsignatura_Estudiante">
+          <End Role="Estudiante" Type="mvcEstudiantesModel.Estudiante" Multiplicity="1" />
+          <End Role="EstudianteAsignatura" Type="mvcEstudiantesModel.EstudianteAsignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EstudianteAsignatura">
+              <PropertyRef Name="IDEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mvcEstudiantesModelStoreContainer" CdmEntityContainer="mvcEstudiantesEntities">
+          <EntitySetMapping Name="Asignaturas"><EntityTypeMapping TypeName="mvcEstudiantesModel.Asignaturas"><MappingFragment StoreEntitySet="Asignaturas">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+            <ScalarProperty Name="Horario" ColumnName="Horario" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Estudiante"><EntityTypeMapping TypeName="mvcEstudiantesModel.Estudiante"><MappingFragment StoreEntitySet="Estudiante">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+            <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+            <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+            <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="EstudianteAsignatura"><EntityTypeMapping TypeName="mvcEstudiantesModel.EstudianteAsignatura"><MappingFragment StoreEntitySet="EstudianteAsignatura">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="IDEstudiante" ColumnName="IDEstudiante" />
+            <ScalarProperty Name="IDAsignatura" ColumnName="IDAsignatura" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DataModel">
+        <EntityTypeShape EntityType="mvcEstudiantesModel.Asignaturas" Width="1.5" PointX="0.75" PointY="1" Height="1.592306315104167" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcEstudiantesModel.Estudiante" Width="1.5" PointX="0.75" PointY="4.75" Height="2.2496956380208335" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcEstudiantesModel.EstudianteAsignatura" Width="1.5" PointX="3" PointY="0.875" Height="1.7566536458333324" IsExpanded="true" />
+        <AssociationConnector Association="mvcEstudiantesModel.FK_EstudianteAsignatura_Asignaturas" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.7961531575520835" />
+          <ConnectorPoint PointX="3" PointY="1.7961531575520835" />
+        </AssociationConnector>
+        <AssociationConnector Association="mvcEstudiantesModel.FK_EstudianteAsignatura_Estudiante" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.8748478190104167" />
+          <ConnectorPoint PointX="3.75" PointY="5.8748478190104167" />
+          <ConnectorPoint PointX="3.75" PointY="2.6316536458333326" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
